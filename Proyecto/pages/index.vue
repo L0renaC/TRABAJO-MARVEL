@@ -1,13 +1,21 @@
 <template>
-  
-    <div>
-      <div v-for="character in characters" :key="character.id">
-        <h2>{{ character.name }}</h2>
-        <img :src="character.thumbnail.path + '.' + character.thumbnail.extension" alt="" width="400" height="400">
+  <div class="heroes">
+    <div v-for="character in characters" :key="character.id" class="character-card">
+      <div class="character-header">
+        <h2 class="character-name">{{ character.name }}</h2>
+      </div>
+      <div class="character-content">
+        <div class="character-image-container">
+          <img
+            :src="character.thumbnail.path + '.' + character.thumbnail.extension"
+            alt=""
+            class="character-image"
+          >
+        </div>
       </div>
     </div>
+  </div>
 </template>
-  
 
 <script setup>
   import axios from "axios";
