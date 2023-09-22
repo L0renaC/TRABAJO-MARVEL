@@ -16,7 +16,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
   import axios from "axios";
   const Hash = '70d3b7f3ca439f4687f5943770d5fc42';
