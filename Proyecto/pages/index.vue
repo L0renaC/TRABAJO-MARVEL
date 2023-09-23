@@ -16,8 +16,8 @@
     </div>
 
     <div v-if="selectedCharacter" class="opacidad" @click="closeDialog($event)" id="opacidad">
-      <transition name="fade">
-        <div :class="['modal', {'modal-fadeclosed': !isDialogOpen}]">
+      <transition name="fade" @after-leave="removeModal" v-if="isDialogOpen">
+        <div class="modal" :class="{'modal-fadeclosed': isClosing}">
         <div class="modal-open">
           <div class="modal-header">
             <h2 class="character-name" style="font-size: 30px;">{{ selectedCharacter.name }}</h2>
@@ -45,10 +45,10 @@
             </ul>
           </div>
         </div>
-        <button @click="closeDialog($event)" class="close-button character-name" id="close-button">Regresar</button> 
+          <button @click="closeDialog($event)" class="close-button character-name" id="close-button">Regresar</button> 
         </div>
-      </div>
-    </transition>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -60,7 +60,9 @@
   const Hash = '70d3b7f3ca439f4687f5943770d5fc42';
   const publicKeys = '9bc0a75d38bd3ca28e1aaebfeb763510';
   const isDialogOpen = ref(false);
+  const isClosing = ref(false);
   const characters = ref([]);
+  const openDialogs = ref([]);
   const selectedCharacter = ref(null);
   const loadCharacter = async ()=>{
     const url = `https://gateway.marvel.com:443/v1/public/characters?limit=100&ts=1&apikey=${publicKeys}&hash=${Hash}`;
@@ -80,10 +82,21 @@
 
   const closeDialog = (event) => {
     if (event.target.id === "close-button" || event.target.id === "opacidad") {
-      isDialogOpen.value = false;
-      selectedCharacter.value = null;
-    }
-  }
+      isClosing.value = true;
+      setTimeout(() => {
+        if (openDialogs.value.length === 0) {
+          isDialogOpen.value = false; 
+          document.body.style.overflow = "auto"; 
+          const opacidad = document.getElementById("opacidad");
+          if (opacidad) {
+            opacidad.style.display = "none";
+          }
+        }
+        isClosing.value = false;
+        selectedCharacter.value = null;
+      }, 500);
+    } 
+  };
 
     loadCharacter();
 </script>
