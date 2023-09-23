@@ -13,35 +13,56 @@
           >
         </div>
       </div>
-      
     </div>
+
     <div v-if="selectedCharacter" class="opacidad" @click="closeDialog">
-    <div v-if="selectedCharacter" class="modal">
-      <div class="modal-open">
-      <button @click="closeDialog" class="close-button">Cerrar</button>
-      <h2>{{ selectedCharacter.name }}</h2>
-      <img class="peque" :src="selectedCharacter.thumbnail.path + '.' + selectedCharacter.thumbnail.extension" alt="">
-      <p>{{ selectedCharacter.description }}</p>
-      <p>Cantidad de comics: {{ selectedCharacter.comics.available }}</p>
-      <p>Cantidad de series: {{ selectedCharacter.series.available }}</p>
-      <p>Cantidad de stories: {{ selectedCharacter.stories.available }}</p>
-      <p>Cantidad de events: {{ selectedCharacter.events.available }}</p>
-      <h3>Primeras tres series:</h3>
-      <ul>
-        <li v-for="series in selectedCharacter.series.items.slice(0, 3)" :key="series.name">{{ series.name }}</li>
-      </ul>
+      <transition name="fade">
+        <div :class="['modal',{'modal-fadeclosed':!isDialogOpen}]">
+        <div class="modal-open">
+          
+          <div class="modal-header">
+            
+            <h2 class="character-name">{{ selectedCharacter.name }}</h2>
+            
+          </div>
+          <div class="div-info"></div>
+          <img class="character-image" :src="selectedCharacter.thumbnail.path + '.' + selectedCharacter.thumbnail.extension" alt="">
+          <h3 class="textod" style="margin-top: 60px" >Descripción:</h3>
+          <div class="texto" style="margin-top: 60px;">
+            <p style="text-align: left;">{{ selectedCharacter.description || 'No tiene Descripción' }}</p>
+          </div>
+          <div class="column-container">
+          <div class="column">
+            <p><b>Cantidad de comics:</b> {{ selectedCharacter.comics.available }}</p>
+            <p><b>Cantidad de series:</b> {{ selectedCharacter.series.available }}</p>
+            <p><b>Cantidad de stories:</b> {{ selectedCharacter.stories.available }}</p>
+            <p><b>Cantidad de events:</b> {{ selectedCharacter.events.available }}</p>
+          </div>
+          <div class="column">
+            <h3>Primeras tres series:</h3>
+            <ul>
+              <li v-for="series in selectedCharacter.series.items.slice(0, 3)" :key="series.name">{{ series.name }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer"> 
+          <button @click="closeDialog" class="close-button">Cerrar</button>
+        </div> 
+        </div>
+      </div>
+    </transition>
     </div>
-    </div>
-    </div>
+  
   </div>
 </template>
 
+
 <script setup>
 import { ref } from 'vue';
-  import axios from "axios";
+import axios from "axios";
   const Hash = '70d3b7f3ca439f4687f5943770d5fc42';
   const publicKeys = '9bc0a75d38bd3ca28e1aaebfeb763510';
-  
+  const isDialogOpen = ref(false);
   const characters = ref([]);
   const selectedCharacter = ref(null);
   const loadCharacter = async ()=>{
@@ -57,11 +78,13 @@ import { ref } from 'vue';
   }
   const showCharacterDetails = (character) => {
   selectedCharacter.value = character;
-  console.log("sapo")
+  isDialogOpen.value = true;
 }
 
 const closeDialog = () => {
+  isDialogOpen.value = false;
   selectedCharacter.value = null;
 }
+
   loadCharacter();
 </script>
