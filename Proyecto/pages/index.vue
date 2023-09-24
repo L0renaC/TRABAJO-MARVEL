@@ -1,15 +1,15 @@
 <template>
   <div class="heroes">
-    <div v-for="character in characters" :key="character.id" class="character-card" @click="showCharacterDetails(character)">
-      <div class="character-header">
-        <h2 class="character-name">{{ character.name }}</h2>
+    <div v-for="character in characters" :key="character.id" class="carta" @click="showCharacterDetails(character)">
+      <div class="linea-roja">
+        <h2 class="nombres">{{ character.name }}</h2>
       </div>
-      <div class="character-content">
+      <div class="contenido">
         <div class="character-image-container">
           <img
             :src="character.thumbnail.path + '.' + character.thumbnail.extension"
             alt=""
-            class="character-image"
+            class="imagen"
           >
         </div>
       </div>
@@ -17,27 +17,27 @@
 
     <div v-if="selectedCharacter" class="opacidad" @click="closeDialog($event)" id="opacidad">
       <transition name="fade" @after-leave="removeModal" v-if="isDialogOpen">
-        <div class="modal" :class="{'modal-fadeclosed': isClosing}">
+        <div class="dialogo" :class="{'dialogo-fadeclosed': isClosing}">
         <div class="modal-open">
-          <div class="modal-header">
-            <h2 class="character-name" style="font-size: 30px;">{{ selectedCharacter.name }}</h2>
+          <div class="dialogo-linea">
+            <h2 class="nombres" style="font-size: 30px;">{{ selectedCharacter.name }}</h2>
           </div>
           <div class="div-info"></div>
-          <img class="character-image" :src="selectedCharacter.thumbnail.path + '.' + selectedCharacter.thumbnail.extension" alt="">
+          <img class="imagen" :src="selectedCharacter.thumbnail.path + '.' + selectedCharacter.thumbnail.extension" alt="">
           <h3 class="textod" style="margin-top: 60px" >Descripción:</h3>
-          <div class="texto" :class="{ 'text-right': !selectedCharacter.description }" style="margin-top: 60px;">
+          <div class="texto" :class="{ 'texto-der': !selectedCharacter.description }" style="margin-top: 60px;">
             <p>
               {{ selectedCharacter.description || 'No tiene Descripción' }}
             </p>
           </div>
-          <div class="column-container">
-          <div class="column">
+          <div class="columna-contenido">
+          <div class="columna">
             <p><b>Cantidad de comics:</b> {{ selectedCharacter.comics.available }}</p>
             <p><b>Cantidad de series:</b> {{ selectedCharacter.series.available }}</p>
             <p><b>Cantidad de stories:</b> {{ selectedCharacter.stories.available }}</p>
             <p><b>Cantidad de events:</b> {{ selectedCharacter.events.available }}</p>
           </div>
-          <div class="column">
+          <div class="columna">
             <h3>Primeras tres series:</h3>
             <ul>
               <li v-if="selectedCharacter.series.items.length === 0">Este personaje no tiene series</li>
@@ -45,7 +45,7 @@
             </ul>
           </div>
         </div>
-          <button @click="closeDialog($event)" class="close-button character-name" id="close-button">Regresar</button> 
+          <button @click="closeDialog($event)" class="boton nombres" id="boton">Regresar</button> 
         </div>
         </div>
       </transition>
@@ -81,7 +81,7 @@
   }
 
   const closeDialog = (event) => {
-    if (event.target.id === "close-button" || event.target.id === "opacidad") {
+    if (event.target.id === "boton" || event.target.id === "opacidad") {
       isClosing.value = true;
       setTimeout(() => {
         if (openDialogs.value.length === 0) {

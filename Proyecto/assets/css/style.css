@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
 }
-.imagen-layouts{
+.imagen-bar{
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -30,7 +30,7 @@ body {
   margin: 0 auto; 
   overflow: hidden;
 }
-.character-card {
+.carta {
   border-radius: 20px;
   padding: 20px;
   margin: 10px;
@@ -41,11 +41,11 @@ body {
   margin-bottom: 40px;
 
 }
-.character-card:hover {
+.carta:hover {
   transform: rotate(6deg); 
   transition: transform 0.2s;
 }
-.character-content {
+.contenido {
   background-color: #f2f2f2; 
   padding: 30px; 
   display: flex; 
@@ -58,7 +58,7 @@ body {
   padding: 20px; 
 
 }
-.character-header {
+.linea-roja{
   background-color: #EA251D; 
   padding: 10px; 
   border-top-left-radius: 20px; 
@@ -68,7 +68,7 @@ body {
   margin-right: -20px;
 
 }
-.character-name {
+.nombres {
   text-align: center;
   font-size: 20px;
   margin-top: 10px;
@@ -76,14 +76,14 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 
 }
-.character-image {
+.imagen {
   border: 3px solid #000000;
   width: 250px;
   height: 250px; 
   object-fit: cover; 
   border-radius: 20px;
 }
-.modal {
+.dialogo {
   height: 600px; 
   border-radius: 20px;
   position: fixed;
@@ -112,10 +112,10 @@ body {
   z-index: 20; 
 
 }
-.texto.text-right {
+.texto.texto-der {
   margin-right: 175px;
 }
-.close-button {
+.boton {
   border: none;
   border-radius: 25px;
   background-color: #EA251D;
@@ -127,11 +127,10 @@ body {
   margin: 10px auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.close-button:hover {
+.boton:hover {
   transform: translateY(-5px); 
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
 }
-
 .opacidad {
   position: fixed;
   top: 0;
@@ -141,8 +140,6 @@ body {
   background-color: rgba(0, 0, 0, 0.5); 
   
 }
-
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -153,11 +150,9 @@ body {
     transform: translateY(0);
   }
 }
-
-.modal-fadeclosed {
+.dialogo-fadeclosed {
   animation: fadeOut 0.5s ease both;
 }
-
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -168,9 +163,7 @@ body {
     transform: translateY(-20px);
   }
 }
-
-
-.modal-header {
+.dialogo-linea {
   background-color: #EA251D;
   padding: 0.5px;
   border-top-left-radius: 10px; 
@@ -179,15 +172,14 @@ body {
   margin-left: -20px; 
   margin-right: -20px;
 }
-.column-container {
+.columna-contenido {
   display: flex;
   justify-content: space-between; 
 }
-
-.column {
+.columna {
   flex-basis: 100%; 
 }
-.modal-footer {
+.dialogo-footer {
   border-radius: 20px;
   position: absolute;
   bottom: 0;
